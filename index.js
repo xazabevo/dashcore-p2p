@@ -1,4 +1,4 @@
-var dashcore = require('@dashevo/dashcore-lib');
-dashcore.P2P = require('./lib');
+var xazabcore = require('@xazabevo/xazabcore-lib');
+xazabcore.P2P = require('./lib');
 
-module.exports = dashcore.P2P;
+module.exports = xazabcore.P2P;

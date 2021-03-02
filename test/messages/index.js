@@ -7,7 +7,7 @@ var Buffers = require('node-buffers');
 var P2P = require('../../');
 var Messages = P2P.Messages;
 var messages = new Messages();
-var dashcore = require('@dashevo/dashcore-lib');
+var xazabcore = require('@xazabevo/xazabcore-lib');
 var Data = require('../data/messages'); //todo merge with commandData
 var commandData = require('../data/messages.json');
 
@@ -25,31 +25,31 @@ describe('Messages', function() {
 
   describe('@constructor', function() {
     it('sets properties correctly', function() {
-      var network = dashcore.Networks.defaultNetwork;
+      var network = xazabcore.Networks.defaultNetwork;
       var messages = new Messages({
         network: network,
-        Block: dashcore.Block,
-        Transaction: dashcore.Transaction
+        Block: xazabcore.Block,
+        Transaction: xazabcore.Transaction
       });
       should.exist(messages.builder.commands);
       should.exist(messages.builder.constructors);
-      messages.builder.constructors.Block.should.equal(dashcore.Block);
-      messages.builder.constructors.Transaction.should.equal(dashcore.Transaction);
+      messages.builder.constructors.Block.should.equal(xazabcore.Block);
+      messages.builder.constructors.Transaction.should.equal(xazabcore.Transaction);
       messages.network.should.deep.equal(network);
     });
     it('network should be unique for each set of messages', function() {
       var messages = new Messages({
-        network: dashcore.Networks.livenet
+        network: xazabcore.Networks.livenet
       });
       var messages2 = new Messages({
-        network: dashcore.Networks.testnet
+        network: xazabcore.Networks.testnet
       });
-      messages.network.should.deep.equal(dashcore.Networks.livenet);
-      messages2.network.should.deep.equal(dashcore.Networks.testnet);
+      messages.network.should.deep.equal(xazabcore.Networks.livenet);
+      messages2.network.should.deep.equal(xazabcore.Networks.testnet);
       var message1 = messages.Version();
-      message1.network.should.deep.equal(dashcore.Networks.livenet);
+      message1.network.should.deep.equal(xazabcore.Networks.livenet);
       var message2 = messages2.Version();
-      message2.network.should.deep.equal(dashcore.Networks.testnet);
+      message2.network.should.deep.equal(xazabcore.Networks.testnet);
     });
   });
 
@@ -91,7 +91,7 @@ describe('Messages', function() {
       var name = messages.builder.commandsMap[command];
       it(name, function() {
         var message = messages[name]();
-        message.network.should.deep.equal(dashcore.Networks.defaultNetwork);
+        message.network.should.deep.equal(xazabcore.Networks.defaultNetwork);
       });
     });
 
@@ -194,11 +194,11 @@ describe('Messages', function() {
 
   describe('#add', function() {
     it('should add a custom message', function() {
-      var network = dashcore.Networks.defaultNetwork;
+      var network = xazabcore.Networks.defaultNetwork;
       var messages = new Messages({
         network: network,
-        Block: dashcore.Block,
-        Transaction: dashcore.Transaction
+        Block: xazabcore.Block,
+        Transaction: xazabcore.Transaction
       });
 
       var CustomMessage = function(arg, options) {
